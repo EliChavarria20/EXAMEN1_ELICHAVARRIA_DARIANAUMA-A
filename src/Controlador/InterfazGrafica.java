@@ -8,6 +8,8 @@ import Modelo.SistemaSeguimiento;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InterfazGrafica extends JFrame {
     private SistemaSeguimiento sistema;
@@ -69,19 +71,26 @@ public class InterfazGrafica extends JFrame {
     }
 
     private void agregarDenuncia() {
-        // Lógica para agregar una denuncia
-        // Mostrar un formulario para ingresar los detalles de la denuncia
         JTextField txtFecha = new JTextField(10);
         JTextField txtUbicacion = new JTextField(10);
         JTextArea txtDescripcion = new JTextArea(5, 20);
+        JTextField txtNombre = new JTextField(10);
+        JTextField txtEdad = new JTextField(10);
+        JTextField txtEvidencia = new JTextField(10); // Nuevo campo para la evidencia
 
-        JPanel panel = new JPanel(new GridLayout(4, 2));
+        JPanel panel = new JPanel(new GridLayout(6, 2));
         panel.add(new JLabel("Fecha:"));
         panel.add(txtFecha);
         panel.add(new JLabel("Ubicación:"));
         panel.add(txtUbicacion);
         panel.add(new JLabel("Descripción:"));
         panel.add(new JScrollPane(txtDescripcion));
+        panel.add(new JLabel("Nombre de la Persona:"));
+        panel.add(txtNombre);
+        panel.add(new JLabel("Edad de la Persona:"));
+        panel.add(txtEdad);
+        panel.add(new JLabel("Evidencia:")); // Nuevo campo para la evidencia
+        panel.add(txtEvidencia);
 
         int result = JOptionPane.showConfirmDialog(null, panel, "Agregar Denuncia",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
@@ -89,7 +98,16 @@ public class InterfazGrafica extends JFrame {
             String fecha = txtFecha.getText();
             String ubicacion = txtUbicacion.getText();
             String descripcion = txtDescripcion.getText();
-            Denuncia nuevaDenuncia = new Denuncia(fecha, ubicacion, descripcion);
+            String nombre = txtNombre.getText();
+            int edad = Integer.parseInt(txtEdad.getText());
+            String evidencia = txtEvidencia.getText(); // Obtener la evidencia ingresada por el usuario
+
+            // Crear una lista para almacenar la evidencia
+            List<String> listaEvidencia = new ArrayList<>();
+            listaEvidencia.add(evidencia);
+
+            Denuncia nuevaDenuncia = new Denuncia(fecha, ubicacion, descripcion, nombre, edad, evidencia);
+
             sistema.registrarDenuncia(nuevaDenuncia);
             JOptionPane.showMessageDialog(null, "Denuncia agregada correctamente.");
         }
@@ -104,7 +122,8 @@ public class InterfazGrafica extends JFrame {
             for (Denuncia denuncia : denuncias) {
                 mensaje.append("Fecha: ").append(denuncia.getFecha()).append("\n");
                 mensaje.append("Ubicación: ").append(denuncia.getUbicacion()).append("\n");
-                mensaje.append("Descripción: ").append(denuncia.getDescripcion()).append("\n\n");
+                mensaje.append("Descripción: ").append(denuncia.getDescripcion()).append("\n");
+                mensaje.append("Evidencia: ").append(denuncia.getEvidencia()).append("\n\n");
             }
             JOptionPane.showMessageDialog(null, mensaje.toString());
         }
@@ -125,12 +144,13 @@ public class InterfazGrafica extends JFrame {
                 JOptionPane.showMessageDialog(null, "Denuncia encontrada:\n" +
                         "Fecha: " + denunciaEncontrada.getFecha() + "\n" +
                         "Ubicación: " + denunciaEncontrada.getUbicacion() + "\n" +
-                        "Descripción: " + denunciaEncontrada.getDescripcion());
+                        "Descripción: " + denunciaEncontrada.getDescripcion() + "\n" +
+                        "Evidencia: " + denunciaEncontrada.getEvidencia());
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró ninguna denuncia con la fecha especificada.");
             }
         }
-    }// FIN DE BUSCAR DENUNCIA
+    }
 
     private void salir() {
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres salir?", "Salir",
@@ -138,6 +158,6 @@ public class InterfazGrafica extends JFrame {
         if (confirmacion == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
-    }// FIN DE SALIR
+    }
+}
 
-}// FIN DE LA CLASE INTERFAZ GRAFICA
