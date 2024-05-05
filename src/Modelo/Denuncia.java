@@ -9,11 +9,13 @@ public class Denuncia {
     private String ubicacion;
     private String descripcion;
     private List<String> evidencia;
+    private Persona denunciante; // Objeto de la clase Persona que representa al denunciante
 
-    public Denuncia(String fecha, String ubicacion, String descripcion, String nombrePersona, int edadPersona, String evidencia) {
+    public Denuncia(String fecha, String ubicacion, String descripcion, Persona denunciante, String evidencia) {
         this.fecha = fecha;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
+        this.denunciante = denunciante;
         this.evidencia = new ArrayList<>();
         this.evidencia.add(evidencia);
     }
@@ -51,7 +53,14 @@ public class Denuncia {
         this.evidencia = evidencia;
     }
 
-    
-    }// FIN DE LA CLASE DENUNCIA
+    public Persona getDenunciante() {
+        return denunciante;
+    }
+
+    public void setDenunciante(Persona denunciante) {
+        this.denunciante = denunciante;
+    }
+}
+
 
 
