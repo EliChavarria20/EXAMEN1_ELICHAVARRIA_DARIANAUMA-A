@@ -3,6 +3,7 @@ package Controlador;
 import javax.swing.*;
 
 import Modelo.Denuncia;
+import Modelo.Persona;
 import Modelo.SistemaSeguimiento;
 
 import java.awt.*;
@@ -102,16 +103,21 @@ public class InterfazGrafica extends JFrame {
             int edad = Integer.parseInt(txtEdad.getText());
             String evidencia = txtEvidencia.getText(); // Obtener la evidencia ingresada por el usuario
 
+            // Crear una persona para representar al denunciante
+            Persona denunciante = new Persona(nombre, edad);
+
             // Crear una lista para almacenar la evidencia
             List<String> listaEvidencia = new ArrayList<>();
             listaEvidencia.add(evidencia);
 
-            Denuncia nuevaDenuncia = new Denuncia(fecha, ubicacion, descripcion, nombre, edad, evidencia);
+            // Crear la denuncia con los datos ingresados
+            Denuncia nuevaDenuncia = new Denuncia(fecha, ubicacion, descripcion, denunciante, evidencia);
 
+            // Registrar la denuncia en el sistema
             sistema.registrarDenuncia(nuevaDenuncia);
             JOptionPane.showMessageDialog(null, "Denuncia agregada correctamente.");
         }
-    }
+    }// FIN AGREGAR DENUNCIA
 
     private void mostrarDenuncia() {
         Denuncia[] denuncias = sistema.getDenuncias();
@@ -127,7 +133,7 @@ public class InterfazGrafica extends JFrame {
             }
             JOptionPane.showMessageDialog(null, mensaje.toString());
         }
-    }
+    }// FIN DE MOSTRAR DENUNCIAS
 
     private void buscarDenuncia() {
         JTextField txtFechaBusqueda = new JTextField(10);
@@ -150,7 +156,7 @@ public class InterfazGrafica extends JFrame {
                 JOptionPane.showMessageDialog(null, "No se encontró ninguna denuncia con la fecha especificada.");
             }
         }
-    }
+    }// FIN DE BUSCAR DENUNCIA
 
     private void salir() {
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres salir?", "Salir",
@@ -158,6 +164,7 @@ public class InterfazGrafica extends JFrame {
         if (confirmacion == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
-    }
-}
+    }// FIN DEL BOTON SALIR
+    
+}// FIN DE LA INTERFAZ
 
