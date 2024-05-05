@@ -63,14 +63,14 @@ public class InterfazGrafica extends JFrame {
 
         add(panel);
     }
-
+// configuracion de los botones
     private void configurarBoton(JButton boton) {
         boton.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         boton.setBackground(Color.BLACK);
         boton.setForeground(Color.WHITE);
         boton.setPreferredSize(new Dimension(200, 40));
     }
-
+// INICIO DE AGREGAR DENUNCIA
     private void agregarDenuncia() {
         JTextField txtFecha = new JTextField(10);
         JTextField txtUbicacion = new JTextField(10);
@@ -129,35 +129,45 @@ public class InterfazGrafica extends JFrame {
                 mensaje.append("Fecha: ").append(denuncia.getFecha()).append("\n");
                 mensaje.append("Ubicación: ").append(denuncia.getUbicacion()).append("\n");
                 mensaje.append("Descripción: ").append(denuncia.getDescripcion()).append("\n");
+                if (denuncia.getDenunciante() != null) {
+                    mensaje.append("Nombre: ").append(denuncia.getDenunciante().getNombre()).append("\n");
+                    mensaje.append("Edad: ").append(denuncia.getDenunciante().getEdad()).append("\n");
+                }
                 mensaje.append("Evidencia: ").append(denuncia.getEvidencia()).append("\n\n");
             }
             JOptionPane.showMessageDialog(null, mensaje.toString());
         }
-    }// FIN DE MOSTRAR DENUNCIAS
+    }//  fin mostrar denuncia
+    
 
     private void buscarDenuncia() {
         JTextField txtFechaBusqueda = new JTextField(10);
         JPanel panelBusqueda = new JPanel(new GridLayout(1, 2));
         panelBusqueda.add(new JLabel("Fecha de la denuncia:"));
         panelBusqueda.add(txtFechaBusqueda);
-
+    
         int result = JOptionPane.showConfirmDialog(null, panelBusqueda, "Buscar Denuncia",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
             String fechaBusqueda = txtFechaBusqueda.getText();
             Denuncia denunciaEncontrada = sistema.buscarDenunciaPorFecha(fechaBusqueda);
             if (denunciaEncontrada != null) {
-                JOptionPane.showMessageDialog(null, "Denuncia encontrada:\n" +
-                        "Fecha: " + denunciaEncontrada.getFecha() + "\n" +
-                        "Ubicación: " + denunciaEncontrada.getUbicacion() + "\n" +
-                        "Descripción: " + denunciaEncontrada.getDescripcion() + "\n" +
-                        "Evidencia: " + denunciaEncontrada.getEvidencia());
+                StringBuilder mensaje = new StringBuilder("Denuncia encontrada:\n");
+                mensaje.append("Fecha: ").append(denunciaEncontrada.getFecha()).append("\n");
+                mensaje.append("Ubicación: ").append(denunciaEncontrada.getUbicacion()).append("\n");
+                mensaje.append("Descripción: ").append(denunciaEncontrada.getDescripcion()).append("\n");
+                if (denunciaEncontrada.getDenunciante() != null) {
+                    mensaje.append("Nombre: ").append(denunciaEncontrada.getDenunciante().getNombre()).append("\n");
+                    mensaje.append("Edad: ").append(denunciaEncontrada.getDenunciante().getEdad()).append("\n");
+                }
+                mensaje.append("Evidencia: ").append(denunciaEncontrada.getEvidencia()).append("\n");
+                JOptionPane.showMessageDialog(null, mensaje.toString());
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró ninguna denuncia con la fecha especificada.");
             }
         }
-    }// FIN DE BUSCAR DENUNCIA
-
+    }
+    
     private void salir() {
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres salir?", "Salir",
                 JOptionPane.YES_NO_OPTION);
@@ -167,4 +177,6 @@ public class InterfazGrafica extends JFrame {
     }// FIN DEL BOTON SALIR
     
 }// FIN DE LA INTERFAZ
+
+
 
