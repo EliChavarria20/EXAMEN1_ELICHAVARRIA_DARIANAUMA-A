@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SistemaSeguimiento {
-    private List<Denuncia> denuncias;
+    private List<Denuncia> denuncias; // Lista de denuncias
 
     public SistemaSeguimiento() {
         this.denuncias = new ArrayList<>();
