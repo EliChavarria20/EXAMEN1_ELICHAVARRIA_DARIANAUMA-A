@@ -1,21 +1,21 @@
 package Modelo;
 
-
-public class Persona extends Denuncia{
-
-    public Persona(String fecha, String ubicacion, String descripcion) {
-        super(fecha, ubicacion, descripcion);
-      
-    }
+// INICIO DE LA CLASE PERSONA
+public class Persona {
 
     private String nombre;
     private int edad;
 
-   
+    public Persona(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
 
+    // Getters y setters 
     public String getNombre() {
         return nombre;
     }
+
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -28,4 +28,4 @@ public class Persona extends Denuncia{
     public void setEdad(int edad) {
         this.edad = edad;
     }
-}
+}// FIN DE LA CLASE PERSONA
