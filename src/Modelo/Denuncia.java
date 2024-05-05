@@ -3,17 +3,19 @@ package Modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+//INICIO DE LA CLASE DENUNCIA
 public class Denuncia {
     private String fecha;
     private String ubicacion;
     private String descripcion;
     private List<String> evidencia;
 
-    public Denuncia(String fecha, String ubicacion, String descripcion) {
+    public Denuncia(String fecha, String ubicacion, String descripcion, String nombrePersona, int edadPersona, String evidencia) {
         this.fecha = fecha;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
         this.evidencia = new ArrayList<>();
+        this.evidencia.add(evidencia);
     }
 
     // Getters y setters
@@ -48,4 +50,8 @@ public class Denuncia {
     public void setEvidencia(List<String> evidencia) {
         this.evidencia = evidencia;
     }
-}
+
+    
+    }// FIN DE LA CLASE DENUNCIA
+
+
