@@ -7,8 +7,7 @@ import Modelo.Persona;
 import Modelo.SistemaSeguimiento;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +25,7 @@ public class InterfazGrafica extends JFrame {
 
     private void initComponents() {
         setTitle("Sistema de Seguimiento de Denuncias");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(InterfazGrafica.class.getResource("/Imagenes/Registro.png")));
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -37,24 +37,25 @@ public class InterfazGrafica extends JFrame {
         // Botones
         btnAgregarDenuncia = new JButton("Agregar Denuncia");
         configurarBoton(btnAgregarDenuncia);
-        btnAgregarDenuncia.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                agregarDenuncia();
-            }
-        });
+        btnAgregarDenuncia.addActionListener(e -> agregarDenuncia());
+        btnAgregarDenuncia.setIcon(new ImageIcon(InterfazGrafica.class.getResource("/Imagenes/avatar.png")));
 
         btnMostrarDenuncia = new JButton("Mostrar Denuncia");
         configurarBoton(btnMostrarDenuncia);
         btnMostrarDenuncia.addActionListener(e -> mostrarDenuncia());
+        btnMostrarDenuncia.setIcon(new ImageIcon(InterfazGrafica.class.getResource("/Imagenes/Mostrar.png")));
+
 
         btnBuscarDenuncia = new JButton("Buscar Denuncia");
         configurarBoton(btnBuscarDenuncia);
         btnBuscarDenuncia.addActionListener(e -> buscarDenuncia());
+        btnBuscarDenuncia.setIcon(new ImageIcon(InterfazGrafica.class.getResource("/Imagenes/lupa.png")));
+        
 
         btnSalir = new JButton("Salir");
         configurarBoton(btnSalir);
         btnSalir.addActionListener(e -> salir());
+        btnSalir.setIcon(new ImageIcon(InterfazGrafica.class.getResource("/Imagenes/logout.png")));
 
         panel.add(btnAgregarDenuncia);
         panel.add(btnMostrarDenuncia);
@@ -63,21 +64,23 @@ public class InterfazGrafica extends JFrame {
 
         add(panel);
     }
-// configuracion de los botones
+
+    // Configuración de los botones
     private void configurarBoton(JButton boton) {
         boton.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-        boton.setBackground(Color.BLACK);
-        boton.setForeground(Color.WHITE);
+        boton.setBackground(Color.LIGHT_GRAY);
+        boton.setForeground(Color.BLACK);
         boton.setPreferredSize(new Dimension(200, 40));
     }
-// INICIO DE AGREGAR DENUNCIA
+
+    // Agregar Denuncia
     private void agregarDenuncia() {
-        JTextField txtFecha = new JTextField(10);
-        JTextField txtUbicacion = new JTextField(10);
-        JTextArea txtDescripcion = new JTextArea(5, 20);
-        JTextField txtNombre = new JTextField(10);
-        JTextField txtEdad = new JTextField(10);
-        JTextField txtEvidencia = new JTextField(10); // Nuevo campo para la evidencia
+        JTextField txtFecha = new JTextField(8);
+        JTextField txtUbicacion = new JTextField(8);
+        JTextArea txtDescripcion = new JTextArea(5, 10);
+        JTextField txtNombre = new JTextField(8);
+        JTextField txtEdad = new JTextField(8);
+        JTextField txtEvidencia = new JTextField(8); // Nuevo campo para la evidencia
 
         JPanel panel = new JPanel(new GridLayout(6, 2));
         panel.add(new JLabel("Fecha:"));
@@ -117,8 +120,9 @@ public class InterfazGrafica extends JFrame {
             sistema.registrarDenuncia(nuevaDenuncia);
             JOptionPane.showMessageDialog(null, "Denuncia agregada correctamente.");
         }
-    }// FIN AGREGAR DENUNCIA
+    }
 
+    // Mostrar Denuncia
     private void mostrarDenuncia() {
         Denuncia[] denuncias = sistema.getDenuncias();
         if (denuncias.length == 0) {
@@ -137,9 +141,9 @@ public class InterfazGrafica extends JFrame {
             }
             JOptionPane.showMessageDialog(null, mensaje.toString());
         }
-    }//  fin mostrar denuncia
-    
+    }
 
+    // Buscar Denuncia
     private void buscarDenuncia() {
         JTextField txtFechaBusqueda = new JTextField(10);
         JPanel panelBusqueda = new JPanel(new GridLayout(1, 2));
@@ -150,6 +154,7 @@ public class InterfazGrafica extends JFrame {
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
             String fechaBusqueda = txtFechaBusqueda.getText();
+            System.out.println("Fecha de búsqueda: " + fechaBusqueda); // Mensaje de depuración
             Denuncia denunciaEncontrada = sistema.buscarDenunciaPorFecha(fechaBusqueda);
             if (denunciaEncontrada != null) {
                 StringBuilder mensaje = new StringBuilder("Denuncia encontrada:\n");
@@ -168,15 +173,16 @@ public class InterfazGrafica extends JFrame {
         }
     }
     
+
+    // Salir
     private void salir() {
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres salir?", "Salir",
                 JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
-    }// FIN DEL BOTON SALIR
-    
-}// FIN DE LA INTERFAZ
+    }
+}
 
 
 

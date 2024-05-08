@@ -60,6 +60,20 @@ public class Denuncia {
     public void setDenunciante(Persona denunciante) {
         this.denunciante = denunciante;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }
 
 
