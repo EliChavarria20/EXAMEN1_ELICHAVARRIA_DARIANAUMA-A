@@ -68,9 +68,9 @@ public class InterfazGrafica extends JFrame {
     // Configuración de los botones
     private void configurarBoton(JButton boton) {
         boton.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-        boton.setBackground(Color.LIGHT_GRAY);
+        boton.setBackground(Color.white);
         boton.setForeground(Color.BLACK);
-        boton.setPreferredSize(new Dimension(200, 40));
+        boton.setPreferredSize(new Dimension(80, 40));
     }
 
     // Agregar Denuncia
